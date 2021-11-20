@@ -39,7 +39,6 @@ def scrapPages(link, nomes, urls, datas, notaU, notaC):
     for i in range(len(k)):
         k[i] = list(k[i])
         datas.append(k[i][3].get_text())
-    dt = []
 
     k = list(soup.findAll('a', href = True, class_='metascore_anchor'))
     n = []
@@ -88,6 +87,13 @@ for i in range(len(links)):
 
 zipped = list(zip(nomes, urls, datas, notaU, notaC))
 df = pd.DataFrame(zipped, columns=['Nome', 'URL','Lancamento', 'Av. Usuario', 'Av. Critica'])
-df.to_csv('listaA.csv')
+dt = df[df['Av. Critica']!='ERROR']
+df.to_csv('jogos.csv')
+dt = dt[dt['Av. Critica']!='tbd']
+dt.to_csv('jogosAVC.csv')
+dt = dt[dt['Av. Usuario']!='tbd']
+dt.to_csv('jogosAVUC.csv')
+dt = df[df['Av. Usuario']!='tbd']
+dt.to_csv('jogosACU.csv')
 
     
